@@ -1,37 +1,61 @@
-import React from 'react';
-import s from './Navbar.module.css';
-console.log(s);
-// let s = {
-//     'nav': 'Navbar_nav__3ou9Q',
-//     'item': 'Navbar_item__3qaF3',
-//     'active' : 'Baksndakdn_actve'
- // }
+import React from "react"
+import { NavLink } from "react-router-dom"
+import s from "./Navbar.module.css"
 
-let c1 = "item";
-let c2 = "active";
-// "item active"
-let classes = c1 + " " + c2;
-let classesNew = `${s.item} ${c2}`;
+const Navbar = (props) => {
+	const { navbarItems } = props.localState
 
+	let navbarElements = navbarItems.map((n) => {
+		if (n.navItem !== "Friends") {
+			return (
+				<div className={s.item}>
+					<NavLink to={n.path} activeClassName={s.active}>
+						{n.navItem}
+					</NavLink>
+				</div>
+			)
+		} else {
+			return (
+				<div className={s.item}>
+					<NavLink
+						to={n.path}
+						activeClassName={s.active}
+						className={s.friends}
+					>
+						{n.navItem}
+					</NavLink>
 
-const Navbar = () => {
-    return <nav className={s.nav}>
-        <div className={s.item}>
-            <a>Profile</a>
-        </div>
-        <div className={`${s.item} ${s.active}`}>
-            <a>Messages</a>
-        </div>
-        <div className={s.item}>
-            <a>News</a>
-        </div>
-        <div className={s.item}>
-            <a>Music</a>
-        </div>
-        <div className={s.item}>
-            <a>Settings</a>
-        </div>
-    </nav>
+					<div className={s.friends}>
+						<div className={s.friendsItem}>
+							<img
+								src='https://img.icons8.com/officel/2x/person-male.png'
+								alt=''
+							/>
+							<div className={s.friendName}>Amir</div>
+						</div>
+
+						<div className={s.friendsItem}>
+							<img
+								src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8Uj8PEy35g6znv1EvEacrBFRjreA8kpqHnw&usqp=CAU'
+								alt=''
+							/>
+							<div className={s.friendName}>Islam</div>
+						</div>
+
+						<div className={s.friendsItem}>
+							<img
+								src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpd4mJRIUwqgE8D_Z2znANEbtiz4GhI4M8NQ&usqp=CAU'
+								alt=''
+							/>
+							<div className={s.friendName}>Zaman</div>
+						</div>
+					</div>
+				</div>
+			)
+		}
+	})
+
+	return <nav className={s.nav}>{navbarElements}</nav>
 }
 
-export default Navbar;
+export default Navbar
