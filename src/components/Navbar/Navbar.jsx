@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 import s from "./Navbar.module.css"
 
 const Navbar = (props) => {
-	const { navbarItems } = props.localState
+	const { navbarItems } = props.localNavBarState
 
 	let navbarElements = navbarItems.map((n) => {
 		if (n.navItem !== "Friends") {
