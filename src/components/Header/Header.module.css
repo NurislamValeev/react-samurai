@@ -4,12 +4,10 @@
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
 	padding: 0 10px;
-	
 }
-
 
 .header img {
-	width: 30px;
-	margin: 10px;
+	display: block;
+	width: 50px;
+	margin: 5px;
 }
-

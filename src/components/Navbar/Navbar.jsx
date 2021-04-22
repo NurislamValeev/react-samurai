@@ -8,7 +8,7 @@ const Navbar = (props) => {
 	let navbarElements = navbarItems.map((n) => {
 		if (n.navItem !== "Friends") {
 			return (
-				<div className={s.item}>
+				<div className={s.item} key={n.id}>
 					<NavLink to={n.path} activeClassName={s.active}>
 						{n.navItem}
 					</NavLink>
@@ -16,7 +16,7 @@ const Navbar = (props) => {
 			)
 		} else {
 			return (
-				<div className={s.item}>
+				<div className={s.item} key={n.id}>
 					<NavLink
 						to={n.path}
 						activeClassName={s.active}
@@ -25,7 +25,7 @@ const Navbar = (props) => {
 						{n.navItem}
 					</NavLink>
 
-					<div className={s.friends}>
+					<div className={s.friends} key={n.id}>
 						<div className={s.friendsItem}>
 							<img
 								src='https://img.icons8.com/officel/2x/person-male.png'

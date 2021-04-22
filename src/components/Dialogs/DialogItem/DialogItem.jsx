@@ -7,10 +7,7 @@ const DialogItem = (props) => {
 
 	return (
 		<div className={`${s.dialog}`}>
-			<img
-				src='http://assets.stickpng.com/images/585e4bf3cb11b227491c339a.png'
-				alt=''
-			/>
+			<img src={require("../../../img/user-icon.png")} alt='' />
 			<NavLink to={path}>{props.name}</NavLink>
 		</div>
 	)
