@@ -7,7 +7,19 @@
 }
 
 .header img {
-	display: block;
 	width: 50px;
-	margin: 5px;
+	padding: 5px;
+}
+
+.rotate {
+	animation: rotation 9s infinite linear;
+}
+
+@keyframes rotation {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(359deg);
+	}
 }
