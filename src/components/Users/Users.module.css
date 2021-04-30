@@ -8,6 +8,14 @@
     cursor: pointer;
 }
 
+.spinner {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    width: 100px;
+    z-index: 1;
+}
+
 .numbers span {
     margin-right: 5px;
 }
