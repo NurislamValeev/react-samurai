@@ -4,6 +4,8 @@
 	overflow: hidden;
 	border-bottom: 1px solid #ddd;
 	padding: 0 10px;
+	display: flex;
+	justify-content: space-between;
 }
 
 .header img {
@@ -22,4 +24,8 @@
 	to {
 		transform: rotate(359deg);
 	}
+}
+
+.loginBlock {
+
 }
