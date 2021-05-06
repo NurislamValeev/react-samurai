@@ -27,5 +27,14 @@
 }
 
 .loginBlock {
+	display: flex;
+	align-items: center;
+
+}
+
+.loginBlock img {
+	width: 50px;
+	height: 50px;
+	border-radius: 50%;
 
 }
