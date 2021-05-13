@@ -8,6 +8,10 @@
     cursor: pointer;
 }
 
+.numbers span:hover {
+    color: chocolate;
+}
+
 .spinner {
     position: absolute;
     top: 35%;

@@ -10,6 +10,7 @@ import Settings from "./components/Settings/Settings"
 import Friends from "./components/Friends/Friends"
 import {Route} from "react-router-dom"
 import ProfileContainer from "./components/Profile/ProfileContainer";
+import LoginPage from "./components/Login/Login";
 
 const App = (props) => {
    return (
@@ -26,6 +27,7 @@ const App = (props) => {
             <Route path='/music' component={Music}/>
             <Route path='/settings' component={Settings}/>
             <Route path='/friends' component={Friends}/>
+            <Route path='/login' component={LoginPage}/>
 
          </div>
       </div>

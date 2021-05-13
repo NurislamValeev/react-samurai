@@ -3,6 +3,8 @@ import styles from "./Users.module.css";
 import userPhoto from "../../img/user-icon.png";
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../../api/api";
+import {toggleFollowingProcess} from "../../redux/users-reducer";
+import PageNumbers from "./PageNumbers";
 
 let Users = (props) => {
 
@@ -14,15 +16,7 @@ let Users = (props) => {
 
    return (
       <>
-         <div className={styles.numbers}>
-            {pages.map(p => {
-               return <span className={props.currentPage === p && styles.selectedPage}
-                            onClick={() => {
-                               props.onPageChanged(p)
-                            }}>{p}
-                     </span>
-            })}
-         </div>
+         <PageNumbers pages={pages} currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
 
          <div>
             {props.users.map((u) => (
@@ -32,31 +26,22 @@ let Users = (props) => {
                      <NavLink to={'/profile/' + u.id}>
                         <img className={styles.userPhoto}
                              src={u.photos.small != null ? u.photos.small : userPhoto}
-                             alt=''/>
+                             alt=''
+                        />
                      </NavLink>
                   </div>
 
                   <div>
                      {u.followed
-                        ? <button onClick={() => {
+                        ? <button disabled={props.followingProcess.some(id => id === u.id)}
+                                  onClick={() => {
+                                     props.unfollow(u.id)
+                                  }}>Unfollow</button>
 
-                           usersAPI.unfollowUser(u.id)
-                              .then(data => {
-                                 if (data.resultCode === 0) {
-                                    props.unfollow(u.id)
-                                 }
-                              })
-                        }}>Unfollow</button>
-                        :
-                        <button onClick={() => {
-
-                           usersAPI.followUser(u.id).then(data => {
-                              if (data.resultCode === 0) {
-                                 props.follow(u.id)
-                              }
-                           })
-
-                        }}>Follow</button>
+                        : <button disabled={props.followingProcess.some(id => id === u.id)}
+                                  onClick={() => {
+                                     props.follow(u.id)
+                                  }}>Follow</button>
                      }
                   </div>
 
@@ -67,15 +52,7 @@ let Users = (props) => {
             ))}
          </div>
 
-         <div className={styles.numbers}>
-            {pages.map(p => {
-               return <span className={props.currentPage === p && styles.selectedPage}
-                            onClick={() => {
-                               props.onPageChanged(p)
-                            }}>{p}
-                     </span>
-            })}
-         </div>
+         <PageNumbers pages={pages} currentPage={props.currentPage} onPageChanged={props.onPageChanged}/>
       </>
    )
 }
