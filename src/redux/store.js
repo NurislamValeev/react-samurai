@@ -4,15 +4,6 @@ import navbarReducer from "./navbar-reducer"
 
 let store = {
    _state: {
-      profilePage: {
-         posts: [
-            {id: 1, message: "Hello World!", likes: 12},
-            {id: 2, message: "Learn React.", likes: 25},
-            {id: 3, message: "Wanna eat some burgers.", likes: 9},
-            {id: 4, message: "Progress.", likes: 15},
-         ],
-         newPostText: "samsa",
-      },
       dialogsPage: {
          dialogs: [
             {id: 1, name: "Nurik"},
@@ -21,7 +12,6 @@ let store = {
             {id: 4, name: "Amir"},
             {id: 5, name: "Zaman"},
          ],
-
          messages: [
             {id: 1, message: "Hey"},
             {id: 2, message: "How is your learning React?"},
