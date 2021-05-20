@@ -12,7 +12,10 @@ const Header = (props) => {
          />
 
          <div className={s.loginBlock}>
-            <div>{props.isAuth ? props.login : <NavLink to={'/login'}>Login</NavLink>}</div>
+            <div>{props.isAuth
+               ? <div>{props.login} - <button onClick={props.logout}>Logout</button></div>
+               : <NavLink to={'/login'}>Login</NavLink>}
+            </div>
             <img src={props.photo ? props.photo : require("../../img/user-icon.png")} alt=""/>
          </div>
 

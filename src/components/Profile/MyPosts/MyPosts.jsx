@@ -8,8 +8,11 @@ const MyPosts = (props) => {
 
    const input = useStore($input)
    const posts = useStore($posts)
+
    $posts.on(submit, (posts) => {
-      return [...posts, {id: 5, message: input, likes: 0}]
+      if (input && input.length < 30 && input.trim()) {
+         return [...posts, {id: 5, message: input, likes: 0}]
+      }
    })
 
    let postsElements = posts.map((p) => {

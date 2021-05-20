@@ -1,0 +1,24 @@
+.input {
+    display: block;
+    font-size: 18px;
+    width: 350px;
+}
+
+.button {
+    display: block;
+    font-size: 18px;
+}
+
+.error {
+    color: red;
+}
+
+.passwordError {
+    border: 2px red solid;
+    display: inline-block;
+}
+
+.emailError {
+    border: 2px red solid;
+    display: inline-block;
+}

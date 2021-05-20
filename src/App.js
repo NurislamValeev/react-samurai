@@ -8,30 +8,51 @@ import News from "./components/News/News"
 import Music from "./components/Music/Music"
 import Settings from "./components/Settings/Settings"
 import Friends from "./components/Friends/Friends"
-import {Route} from "react-router-dom"
+import {Route, withRouter} from "react-router-dom"
 import ProfileContainer from "./components/Profile/ProfileContainer";
 import LoginPage from "./components/Login/Login";
+import {connect} from "react-redux";
+import {compose} from "redux";
+import {initializeApp} from "./redux/app-reducer";
+import Preloader from "./components/common/Preloader/Preloader";
 
-const App = (props) => {
-   return (
-      <div className='app-wrapper'>
-         <HeaderContainer/>
-         <Navbar localNavBarState={props.localNavBarState}/>
+class App extends React.Component {
 
-         <div className='app-wrapper-content'>
+   componentDidMount() {
+      this.props.initializeApp()
+   }
 
-            <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
-            <Route path='/dialogs' render={() => <DialogsContainer/>}/>
-            <Route path='/users' render={() => <UsersContainer/>}/>
-            <Route path='/news' component={News}/>
-            <Route path='/music' component={Music}/>
-            <Route path='/settings' component={Settings}/>
-            <Route path='/friends' component={Friends}/>
-            <Route path='/login' component={LoginPage}/>
+   render() {
+      if (!this.props.initialized) {
+         return <Preloader/>
+      }
 
+      return (
+         <div className='app-wrapper'>
+            <HeaderContainer/>
+            <Navbar localNavBarState={this.props.localNavBarState}/>
+
+            <div className='app-wrapper-content'>
+               <Route path='/profile/:userId?' render={() => <ProfileContainer/>}/>
+               <Route path='/dialogs' render={() => <DialogsContainer/>}/>
+               <Route path='/users' render={() => <UsersContainer/>}/>
+               <Route path='/news' component={News}/>
+               <Route path='/music' component={Music}/>
+               <Route path='/settings' component={Settings}/>
+               <Route path='/friends' component={Friends}/>
+               <Route path='/login' component={LoginPage}/>
+            </div>
          </div>
-      </div>
-   )
+      )
+   }
 }
 
-export default App
+const mapStateToProps = (state) => ({
+   initialized: state.app.initialized
+})
+
+
+export default compose(
+   withRouter,
+   connect(mapStateToProps, {initializeApp}))
+(App)
