@@ -2,16 +2,6 @@
     width: 60px;
 }
 
-.numbers {
-    margin-bottom: 15px;
-    font-size: 32px;
-    cursor: pointer;
-}
-
-.numbers span:hover {
-    color: chocolate;
-}
-
 .spinner {
     position: absolute;
     top: 35%;
@@ -20,12 +10,3 @@
     z-index: 1;
 }
 
-.numbers span {
-    margin-right: 5px;
-}
-
-.selectedPage {
-    font-weight: 700;
-    color: #d65c12;
-    font-size: 38px;
-}

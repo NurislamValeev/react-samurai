@@ -10,7 +10,7 @@ import {Provider} from "react-redux"
 ReactDOM.render(
    <BrowserRouter>
       <Provider store={store}>
-         <App localNavBarState={store.getState().navbar}/>
+         <App/>
       </Provider>
    </BrowserRouter>,
    document.getElementById("root")

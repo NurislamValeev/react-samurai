@@ -1,0 +1,19 @@
+.numbers span {
+    margin-right: 5px;
+}
+
+.selectedPage {
+    font-weight: 700;
+    color: #d65c12;
+    font-size: 38px;
+}
+
+.numbers {
+    margin-bottom: 15px;
+    font-size: 32px;
+    cursor: pointer;
+}
+
+.numbers span:hover {
+    color: chocolate;
+}
