@@ -6,6 +6,8 @@ import {$input, $posts, change, submit} from "./model";
 
 const MyPosts = (props) => {
 
+   console.log("render myPosts")
+
    const input = useStore($input)
    const posts = useStore($posts)
 
@@ -36,4 +38,4 @@ const MyPosts = (props) => {
    )
 }
 
-export default MyPosts
+export default React.memo(MyPosts)

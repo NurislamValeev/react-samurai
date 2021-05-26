@@ -3,10 +3,10 @@ import {
    follow, setCurrentPage,
    unfollow, toggleFollowingProcess, requestUsers,
 } from "../../redux/users-reducer"
-import React from "react";
-import Users from "./Users";
-import Preloader from "../common/Preloader/Preloader";
-import {compose} from "redux";
+import React from "react"
+import Users from "./Users"
+import Preloader from "../common/Preloader/Preloader"
+import {compose} from "redux"
 import {
    getCurrentPage,
    getFollowingProcess,
@@ -58,6 +58,7 @@ class UsersContainer extends React.Component {
 
 let mapStateToProps = (state) => {
    return {
+      // users: getUsers(state),
       users: getUsers(state),
       pageSize: getPageSize(state),
       totalUsersCount: getTotalUsersCount(state),

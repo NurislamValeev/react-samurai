@@ -8,6 +8,7 @@
     "axios": "^0.21.1",
     "effector": "^21.8.11",
     "effector-react": "^21.3.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "formik": "^2.2.6",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -15,7 +16,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "2.1.1",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0"
   },
   "scripts": {
     "start": "react-scripts start",

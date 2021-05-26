@@ -1,6 +1,6 @@
 import {authAPI} from "../api/api";
 
-const SET_USER_DATA = "SET_USER_DATA"
+const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA"
 const SET_USER_PHOTO = "SET_USER_PHOTO"
 
 let initialState = {
@@ -38,39 +38,36 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 })
 export const setAuthUserPhoto = (photo) => ({type: SET_USER_PHOTO, photo})
 
-export const getAuthUser = () => (dispatch) => {
-   return authAPI.getAuthUserData()
-      .then(data => {
-         if (data.resultCode === 0) {
-            let {id, email, login} = data.data
-            dispatch(setAuthUserData(id, email, login, true))
-            authAPI.getAuthUserPhoto(id).then(photo => {
-               dispatch(setAuthUserPhoto(photo))
-            })
-         }
-      })
+export const getAuthUser = () => async (dispatch) => {
+   let response = await authAPI.getAuthUserData()
+   if (response.resultCode === 0) {
+      let {id, email, login} = response.data
+      dispatch(setAuthUserData(id, email, login, true))
+
+      let photo = await authAPI.getAuthUserPhoto(id)
+      dispatch(setAuthUserPhoto(photo))
+   }
+
 }
 
 
 export const login = (email, password, rememberMe) => {
-   return (dispatch) => {
-      authAPI.login(email, password, rememberMe).then(data => {
-         if (data.resultCode === 0) {
-            dispatch(getAuthUser())
-         } else {
-            alert(data.messages)
-         }
-      })
+   return async (dispatch) => {
+      let response = await authAPI.login(email, password, rememberMe)
+      if (response.resultCode === 0) {
+         dispatch(getAuthUser())
+      } else {
+         alert(response.messages)
+      }
    }
 }
 
 export const logout = () => {
-   return (dispatch) => {
-      authAPI.logout().then(data => {
-         if (data.resultCode === 0) {
-            dispatch(setAuthUserData(null, null, null, false))
-         }
-      })
+   return async (dispatch) => {
+      let response = await authAPI.logout()
+      if (response.resultCode === 0) {
+         dispatch(setAuthUserData(null, null, null, false))
+      }
    }
 }
 
