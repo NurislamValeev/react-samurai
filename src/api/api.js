@@ -1,5 +1,4 @@
 import * as axios from "axios";
-import {toggleFollowingProcess} from "../redux/users-reducer";
 
 const instance = axios.create({
    withCredentials: true,

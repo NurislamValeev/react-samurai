@@ -5,7 +5,7 @@ import {NavLink} from "react-router-dom";
 
 let User = ({user, followingProcess, follow, unfollow}) => {
    return (
-      <>
+      <div>
          <div>
             <NavLink to={'/profile/' + user.id}>
                <img className={styles.userPhoto}
@@ -32,7 +32,7 @@ let User = ({user, followingProcess, follow, unfollow}) => {
          <div>{user.name}</div>
          <div>{user.status}</div>
          <br/>
-      </>
+      </div>
    )
 }
 
