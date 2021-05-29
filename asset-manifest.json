@@ -1,7 +1,7 @@
 {
   "main.css": "/react-samurai/static/css/main.4258cd4e.chunk.css",
-  "main.js": "/react-samurai/static/js/main.c158891b.chunk.js",
-  "main.js.map": "/react-samurai/static/js/main.c158891b.chunk.js.map",
+  "main.js": "/react-samurai/static/js/main.3b504fe1.chunk.js",
+  "main.js.map": "/react-samurai/static/js/main.3b504fe1.chunk.js.map",
   "static/css/1.2fe4f158.chunk.css": "/react-samurai/static/css/1.2fe4f158.chunk.css",
   "static/js/1.a80cbba0.chunk.js": "/react-samurai/static/js/1.a80cbba0.chunk.js",
   "static/js/1.a80cbba0.chunk.js.map": "/react-samurai/static/js/1.a80cbba0.chunk.js.map",
@@ -21,6 +21,6 @@
   "static/css/2.40ec2b33.chunk.css.map": "/react-samurai/static/css/2.40ec2b33.chunk.css.map",
   "static/css/1.2fe4f158.chunk.css.map": "/react-samurai/static/css/1.2fe4f158.chunk.css.map",
   "index.html": "/react-samurai/index.html",
-  "precache-manifest.538c7f11d30c058585ba7699b1a4ec5e.js": "/react-samurai/precache-manifest.538c7f11d30c058585ba7699b1a4ec5e.js",
+  "precache-manifest.804dafa59d0f46652de8db6e9f6f9a8b.js": "/react-samurai/precache-manifest.804dafa59d0f46652de8db6e9f6f9a8b.js",
   "service-worker.js": "/react-samurai/service-worker.js"
 }

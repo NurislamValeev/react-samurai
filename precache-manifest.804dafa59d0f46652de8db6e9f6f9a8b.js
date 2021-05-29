@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "c158891b38896221d9cb",
+    "revision": "3b504fe124065c46203f",
     "url": "/react-samurai/static/css/main.4258cd4e.chunk.css"
   },
   {
-    "revision": "c158891b38896221d9cb",
-    "url": "/react-samurai/static/js/main.c158891b.chunk.js"
+    "revision": "3b504fe124065c46203f",
+    "url": "/react-samurai/static/js/main.3b504fe1.chunk.js"
   },
   {
     "revision": "a80cbba057d281588f3d",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/react-samurai/static/media/reactjs-icon.70384772.svg"
   },
   {
-    "revision": "621b794b725c8ac0d4eb67c9e48dd00e",
+    "revision": "02881fc9b1634e4765f5e56dfbcfe3ef",
     "url": "/react-samurai/index.html"
   }
 ];
