@@ -1,19 +1,19 @@
 self.__precacheManifest = [
   {
-    "revision": "3b504fe124065c46203f",
+    "revision": "2f50892aa92868ef79ac",
     "url": "/react-samurai/static/css/main.4258cd4e.chunk.css"
   },
   {
-    "revision": "3b504fe124065c46203f",
-    "url": "/react-samurai/static/js/main.3b504fe1.chunk.js"
+    "revision": "2f50892aa92868ef79ac",
+    "url": "/react-samurai/static/js/main.2f50892a.chunk.js"
   },
   {
-    "revision": "a80cbba057d281588f3d",
+    "revision": "ec3f689aacd0f68f2169",
     "url": "/react-samurai/static/css/1.2fe4f158.chunk.css"
   },
   {
-    "revision": "a80cbba057d281588f3d",
-    "url": "/react-samurai/static/js/1.a80cbba0.chunk.js"
+    "revision": "ec3f689aacd0f68f2169",
+    "url": "/react-samurai/static/js/1.ec3f689a.chunk.js"
   },
   {
     "revision": "331a59ab573886f0ed9a",
@@ -24,16 +24,16 @@ self.__precacheManifest = [
     "url": "/react-samurai/static/js/2.331a59ab.chunk.js"
   },
   {
-    "revision": "9c913afcfa51c8274a70",
-    "url": "/react-samurai/static/js/3.9c913afc.chunk.js"
+    "revision": "bc89f2d9e40d169ee671",
+    "url": "/react-samurai/static/js/3.bc89f2d9.chunk.js"
   },
   {
     "revision": "f21312fcd93e61d95613",
     "url": "/react-samurai/static/js/4.f21312fc.chunk.js"
   },
   {
-    "revision": "af1c0831c14fd3bfc275",
-    "url": "/react-samurai/static/js/runtime~main.af1c0831.js"
+    "revision": "1bc7a0d3e29fc1807eba",
+    "url": "/react-samurai/static/js/runtime~main.1bc7a0d3.js"
   },
   {
     "revision": "7ea4af7d8401d2b43ee841bfa2abe89d",
@@ -48,7 +48,7 @@ self.__precacheManifest = [
     "url": "/react-samurai/static/media/reactjs-icon.70384772.svg"
   },
   {
-    "revision": "02881fc9b1634e4765f5e56dfbcfe3ef",
+    "revision": "64909875687aa002640c05b3a294f5af",
     "url": "/react-samurai/index.html"
   }
 ];
