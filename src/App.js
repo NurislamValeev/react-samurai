@@ -7,7 +7,7 @@ import News from "./components/News/News"
 import Music from "./components/Music/Music"
 import Settings from "./components/Settings/Settings"
 import Friends from "./components/Friends/Friends"
-import {BrowserRouter, Route, withRouter} from "react-router-dom"
+import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom"
 import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -61,11 +61,11 @@ const AppContainer = compose(
 
 const SamuraiJSApp = (props) => {
    return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <HashRouter basename={process.env.PUBLIC_URL}>
          <Provider store={store}>
             <AppContainer/>
          </Provider>
-      </BrowserRouter>
+      </HashRouter>
    )
 }
 
