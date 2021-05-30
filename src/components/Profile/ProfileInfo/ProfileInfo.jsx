@@ -1,10 +1,14 @@
-import React from 'react'
+import React, {useState} from 'react'
 import s from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader"
 import userPhoto from "../../../img/user-icon.png"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks"
+import ProfileDataForm from "./ProfileDataForm";
 
 const ProfileInfo = (props) => {
+
+   let [editMode, setEditMode] = useState(false)
+
 
    if (!props.profile) {
       return <Preloader/>
@@ -20,23 +24,56 @@ const ProfileInfo = (props) => {
       <div className={s.descriptionBlock}>
          <img className={s.userPhoto} src={props.profile.photos.large || userPhoto} alt=""/>
          {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
-         <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
 
+         <br/>
+         {editMode
+            ? <ProfileDataForm {...props}/>
+            : <ProfileDetails {...props} goToEditMode={() => {
+               setEditMode(true)
+            }}/>}
+         <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+      </div>
+   )
+}
+
+const ProfileDetails = (props) => {
+   return (
+      <div>
+         {props.isOwner && <div>
+            <button onClick={props.goToEditMode}>Edit</button>
+         </div>}
          <div>
-            <div>{props.profile.fullName}</div>
-            <div>{props.profile.aboutMe}</div>
-            <div>
-               Мой ВК: <a target='_blank' href={`http://${props.profile.contacts.vk}`}>
-               {props.profile.contacts.vk}
-            </a>
-            </div>
-            <div>
-               Мой гитхаб: {props.profile.github}
-            </div>
-            <div>
-               {props.profile.lookingForAJobDescription}
-            </div>
+            <b>Full name</b>: {props.profile.fullName}
          </div>
+         <div>
+            <b>Looking for a job</b>: {props.profile.lookingForAJob ? "Yes" : "No"}
+         </div>
+         {props.profile.lookingForAJob &&
+         <div>
+            <b>My professional skills</b>: {props.profile.lookingForAJobDescription}
+         </div>
+         }
+         <div>
+            <b>About me</b>: {props.profile.aboutMe}
+         </div>
+         <div>
+            <b>Contacts</b>: {Object.keys(props.profile.contacts).map(key => {
+            return (
+               <Contact key={key}
+                        contactTitle={key}
+                        contactValue={props.profile.contacts[key]}
+               />
+            )
+         })}
+         </div>
+      </div>
+   )
+}
+
+const Contact = ({contactTitle, contactValue}) => {
+   return (
+      <div>
+         <b className={s.contacts}>{contactTitle}</b>: {contactValue}
       </div>
    )
 }
