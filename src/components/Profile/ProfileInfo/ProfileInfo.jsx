@@ -3,7 +3,7 @@ import s from "./ProfileInfo.module.css"
 import Preloader from "../../common/Preloader/Preloader"
 import userPhoto from "../../../img/user-icon.png"
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks"
-import ProfileDataForm from "./ProfileDataForm";
+import ProfileDataForm, {Contact} from "./ProfileDataForm";
 
 const ProfileInfo = (props) => {
 
@@ -23,20 +23,22 @@ const ProfileInfo = (props) => {
    return (
       <div className={s.descriptionBlock}>
          <img className={s.userPhoto} src={props.profile.photos.large || userPhoto} alt=""/>
-         {props.isOwner && <input type="file" onChange={onMainPhotoSelected}/>}
+         {props.isOwner && <div><input type="file" onChange={onMainPhotoSelected}/></div>}
 
          <br/>
          {editMode
-            ? <ProfileDataForm {...props}/>
-            : <ProfileDetails {...props} goToEditMode={() => {
+            ? <ProfileDataForm {...props} setEditMode={setEditMode}/>
+            : <ProfileData {...props} goToEditMode={() => {
                setEditMode(true)
-            }}/>}
+            }}/>
+         }
          <ProfileStatusWithHooks status={props.status} updateStatus={props.updateStatus}/>
+
       </div>
    )
 }
 
-const ProfileDetails = (props) => {
+const ProfileData = (props) => {
    return (
       <div>
          {props.isOwner && <div>
@@ -70,12 +72,5 @@ const ProfileDetails = (props) => {
    )
 }
 
-const Contact = ({contactTitle, contactValue}) => {
-   return (
-      <div>
-         <b className={s.contacts}>{contactTitle}</b>: {contactValue}
-      </div>
-   )
-}
 
 export default ProfileInfo

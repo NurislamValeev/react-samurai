@@ -1,9 +1,9 @@
-import React from "react";
+import React from "react"
 import styles from "./Login.module.css"
-import {Formik} from 'formik';
-import {connect} from "react-redux";
-import {login} from "../../redux/auth-reducer";
-import {Redirect} from "react-router-dom";
+import {Formik} from 'formik'
+import {connect} from "react-redux"
+import {login, stopSubmit} from "../../redux/auth-reducer"
+import {Redirect} from "react-router-dom"
 
 
 const LoginForm = (props) => {
@@ -39,6 +39,8 @@ const LoginForm = (props) => {
               isSubmitting
            }) => (
             <form onSubmit={handleSubmit}>
+               <div className={styles.error}>{props.errorMessage}</div>
+
                <div className={errors.email ? styles.emailError : null}>
                   <input className={styles.input}
                          type="email"
@@ -60,7 +62,7 @@ const LoginForm = (props) => {
                </div>
 
                <div className={styles.error}>{errors.password && touched.password && errors.password}</div>
-               <button type="submit" disabled={isSubmitting} className={styles.button}>
+               <button type="submit" className={styles.button}>
                   Login
                </button>
             </form>
@@ -72,21 +74,27 @@ const LoginForm = (props) => {
 const Login = (props) => {
 
    if (props.isAuth) {
-      return <Redirect to={"/profile"} />
+      return <Redirect to={"/profile"}/>
    }
 
    return (
       <div>
          <h1>Login</h1>
-         <LoginForm login={props.login}/>
+
+         <LoginForm
+            login={props.login}
+            errorMessage={props.errorMessage}
+         />
+
       </div>
    )
 }
 
 const mapStateToProps = (state) => ({
-   isAuth: state.auth.isAuth
+   isAuth: state.auth.isAuth,
+   errorMessage: state.auth.errorMessage
+
 })
 
 
-
-export default connect(mapStateToProps, {login})(Login)
+export default connect(mapStateToProps, {login, stopSubmit})(Login)

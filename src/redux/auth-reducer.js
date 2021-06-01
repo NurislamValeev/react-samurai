@@ -2,6 +2,7 @@ import {authAPI} from "../api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA"
 const SET_USER_PHOTO = "SET_USER_PHOTO"
+const STOP_SUBMIT = "STOP_SUBMIT"
 
 let initialState = {
    id: null,
@@ -9,7 +10,8 @@ let initialState = {
    email: null,
    isFetching: false, // homework
    isAuth: false,
-   photo: null
+   photo: null,
+   errorMessage: ""
 }
 
 const authReducer = (state = initialState, action) => {
@@ -26,6 +28,9 @@ const authReducer = (state = initialState, action) => {
             ...state, photo: action.photo
          }
 
+      case STOP_SUBMIT: {
+         return {...state, errorMessage: action.errorMessage}
+      }
 
       default:
          return state
@@ -37,6 +42,8 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
    payload: {id, email, login, isAuth}
 })
 export const setAuthUserPhoto = (photo) => ({type: SET_USER_PHOTO, photo})
+export const stopSubmit = (errorMessage) => ({type: STOP_SUBMIT, errorMessage})
+
 
 export const getAuthUser = () => async (dispatch) => {
    let response = await authAPI.getAuthUserData()
@@ -57,7 +64,10 @@ export const login = (email, password, rememberMe) => {
       if (response.resultCode === 0) {
          dispatch(getAuthUser())
       } else {
-         alert(response.messages)
+         // alert(response.messages)
+         const errorMessage = await response.messages
+         dispatch(stopSubmit(errorMessage))
+         return Promise.reject(errorMessage)
       }
    }
 }
