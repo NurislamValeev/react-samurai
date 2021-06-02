@@ -32,31 +32,6 @@ export const usersAPI = {
    },
 }
 
-export const authAPI = {
-   getAuthUserData() {
-      return instance.get(`/auth/me`)
-         .then(response => response.data)
-   },
-
-   getAuthUserPhoto(id) {
-      return instance.get(`/profile/` + id)
-         .then(response => response.data.photos.small)
-   },
-
-   login(email, password, rememberMe = false) {
-      return instance.post(`/auth/login`, {
-         email,
-         password,
-         rememberMe
-      })
-         .then(response => response.data)
-   },
-
-   logout() {
-      return instance.delete(`/auth/login`).then(response => response.data)
-   },
-}
-
 export const profileAPI = {
 
    getUserProfile(userId) {
@@ -80,6 +55,39 @@ export const profileAPI = {
       return instance.put(`/profile`, profile)
    }
 
+}
+
+export const authAPI = {
+   getAuthUserData() {
+      return instance.get(`/auth/me`)
+         .then(response => response.data)
+   },
+
+   getAuthUserPhoto(id) {
+      return instance.get(`/profile/` + id)
+         .then(response => response.data.photos.small)
+   },
+
+   login(email, password, rememberMe = false, captcha = null) {
+      return instance.post(`/auth/login`, {
+         email,
+         password,
+         rememberMe,
+         captcha
+      })
+         .then(response => response.data)
+   },
+
+   logout() {
+      return instance.delete(`/auth/login`).then(response => response.data)
+   },
+}
+
+export const securityAPI = {
+   getCaptchaUrl() {
+      return instance.get(`/security/get-captcha-url`)
+         .then(response => response.data)
+   },
 }
 
 

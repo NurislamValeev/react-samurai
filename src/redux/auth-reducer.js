@@ -1,8 +1,9 @@
-import {authAPI} from "../api/api";
+import {authAPI, securityAPI} from "../api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA"
-const SET_USER_PHOTO = "SET_USER_PHOTO"
-const STOP_SUBMIT = "STOP_SUBMIT"
+const GET_CAPTCHA_URL_SUCCESS = "samurai-network/auth/GET_CAPTCHA_URL_SUCCESS"
+const SET_USER_PHOTO = "samurai-network/auth/SET_USER_PHOTO"
+const STOP_SUBMIT = "samurai-network/auth/STOP_SUBMIT"
 
 let initialState = {
    id: null,
@@ -11,13 +12,15 @@ let initialState = {
    isFetching: false, // homework
    isAuth: false,
    photo: null,
-   errorMessage: ""
+   errorMessage: null,
+   captchaUrl: null
 }
 
 const authReducer = (state = initialState, action) => {
 
    switch (action.type) {
       case SET_USER_DATA:
+      case GET_CAPTCHA_URL_SUCCESS:
          return {
             ...state,
             ...action.payload
@@ -41,6 +44,11 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
    type: SET_USER_DATA,
    payload: {id, email, login, isAuth}
 })
+
+export const getCaptchaUrlSuccess = (captchaUrl) => ({
+   type: GET_CAPTCHA_URL_SUCCESS,
+   payload: {captchaUrl}
+})
 export const setAuthUserPhoto = (photo) => ({type: SET_USER_PHOTO, photo})
 export const stopSubmit = (errorMessage) => ({type: STOP_SUBMIT, errorMessage})
 
@@ -58,17 +66,27 @@ export const getAuthUser = () => async (dispatch) => {
 }
 
 
-export const login = (email, password, rememberMe) => {
+export const login = (email, password, rememberMe, captcha) => {
    return async (dispatch) => {
-      let response = await authAPI.login(email, password, rememberMe)
+      let response = await authAPI.login(email, password, rememberMe, captcha)
       if (response.resultCode === 0) {
          dispatch(getAuthUser())
       } else {
-         // alert(response.messages)
+         if (response.resultCode === 10) {
+            dispatch(getCaptchaUrl())
+         }
          const errorMessage = await response.messages
          dispatch(stopSubmit(errorMessage))
          return Promise.reject(errorMessage)
       }
+   }
+}
+
+export const getCaptchaUrl = () => {
+   return async (dispatch) => {
+      const response = await securityAPI.getCaptchaUrl()
+      const captchaUrl = response.url
+      dispatch(getCaptchaUrlSuccess(captchaUrl))
    }
 }
 

@@ -1,9 +1,10 @@
 import React from "react"
 import styles from "./Login.module.css"
-import {Formik} from 'formik'
+import {Field, Formik} from 'formik'
 import {connect} from "react-redux"
 import {login, stopSubmit} from "../../redux/auth-reducer"
 import {Redirect} from "react-router-dom"
+import s from "../Profile/ProfileInfo/ProfileInfo.module.css";
 
 
 const LoginForm = (props) => {
@@ -26,7 +27,7 @@ const LoginForm = (props) => {
             return errors
          }}
          onSubmit={(values, {setSubmitting}) => {
-            props.login(values.email, values.password, true)
+            props.login(values.email, values.password, true, values.captcha)
          }}
       >
          {({
@@ -62,6 +63,10 @@ const LoginForm = (props) => {
                </div>
 
                <div className={styles.error}>{errors.password && touched.password && errors.password}</div>
+               <br/>
+               {props.captchaUrl && <img src={props.captchaUrl} alt="captcha"/>}
+               {props.captchaUrl && <div><Field type="captcha" name="captcha" placeholder="captcha"/></div>}
+               <br/>
                <button type="submit" className={styles.button}>
                   Login
                </button>
@@ -84,6 +89,7 @@ const Login = (props) => {
          <LoginForm
             login={props.login}
             errorMessage={props.errorMessage}
+            captchaUrl={props.captchaUrl}
          />
 
       </div>
@@ -92,7 +98,9 @@ const Login = (props) => {
 
 const mapStateToProps = (state) => ({
    isAuth: state.auth.isAuth,
-   errorMessage: state.auth.errorMessage
+   errorMessage: state.auth.errorMessage,
+   captchaUrl: state.auth.captchaUrl,
+
 
 })
 
