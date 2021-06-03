@@ -7,7 +7,7 @@ import News from "./components/News/News"
 import Music from "./components/Music/Music"
 import Settings from "./components/Settings/Settings"
 import Friends from "./components/Friends/Friends"
-import {BrowserRouter, HashRouter, Route, withRouter} from "react-router-dom"
+import {BrowserRouter, HashRouter, Route, withRouter, Switch, Redirect} from "react-router-dom"
 import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -21,8 +21,18 @@ const ProfileContainer = React.lazy(() => import("./components/Profile/ProfileCo
 
 class App extends React.Component {
 
+   catchAllUnhandledErrors = (promiseRejectionEvent) => {
+      alert("Some error occurred")
+      console.error(promiseRejectionEvent)
+   }
+
    componentDidMount() {
       this.props.initializeApp()
+      window.addEventListener("unhandledrejection", this.catchAllUnhandledErrors)
+   }
+
+   componentWillUnmount() {
+      window.removeEventListener("unhandledrejection", this.catchAllUnhandledErrors)
    }
 
    render() {
@@ -36,14 +46,18 @@ class App extends React.Component {
             <Navbar/>
 
             <div className='app-wrapper-content'>
-               <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
-               <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
-               <Route path='/users' render={() => <UsersContainer/>}/>
-               <Route path='/news' component={News}/>
-               <Route path='/music' component={Music}/>
-               <Route path='/settings' component={Settings}/>
-               <Route path='/friends' component={Friends}/>
-               <Route path='/login' component={LoginPage}/>
+               <Switch>
+                  <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
+                  <Route exaxt path='/' render={() => <Redirect to={"/profile"}/>}/>
+                  <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
+                  <Route path='/users' render={() => <UsersContainer/>}/>
+                  <Route path='/news' component={News}/>
+                  <Route path='/music' component={Music}/>
+                  <Route path='/settings' component={Settings}/>
+                  <Route path='/friends' component={Friends}/>
+                  <Route path='/login' component={LoginPage}/>
+                  <Route path='*' render={() => <div>404 Not found :(</div>}/>
+               </Switch>
             </div>
          </div>
       )
@@ -61,11 +75,11 @@ const AppContainer = compose(
 
 const SamuraiJSApp = (props) => {
    return (
-      <HashRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
          <Provider store={store}>
             <AppContainer/>
          </Provider>
-      </HashRouter>
+      </BrowserRouter>
    )
 }
 
