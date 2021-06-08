@@ -7,7 +7,7 @@ import News from "./components/News/News"
 import Music from "./components/Music/Music"
 import Settings from "./components/Settings/Settings"
 import Friends from "./components/Friends/Friends"
-import {BrowserRouter, HashRouter, Route, withRouter, Switch, Redirect} from "react-router-dom"
+import {BrowserRouter, Redirect, Route, Switch, withRouter} from "react-router-dom"
 import LoginPage from "./components/Login/Login";
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
@@ -48,7 +48,7 @@ class App extends React.Component {
             <div className='app-wrapper-content'>
                <Switch>
                   <Route path='/profile/:userId?' render={withSuspense(ProfileContainer)}/>
-                  <Route exaxt path='/' render={() => <Redirect to={"/profile"}/>}/>
+                  <Redirect exact from="/" to="/profile"/>
                   <Route path='/dialogs' render={withSuspense(DialogsContainer)}/>
                   <Route path='/users' render={() => <UsersContainer/>}/>
                   <Route path='/news' component={News}/>
