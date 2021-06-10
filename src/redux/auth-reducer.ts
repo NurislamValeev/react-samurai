@@ -24,9 +24,9 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
         case SET_USER_DATA:
         case GET_CAPTCHA_URL_SUCCESS:
             return {
-                id32: "ds",
                 ...state,
-                ...action.payload
+                ...action.payload,
+                id32: "ds",
             }
 
         case SET_USER_PHOTO:

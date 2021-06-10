@@ -6,8 +6,6 @@ import {$input, $posts, change, submit} from "./model";
 
 const MyPosts = (props) => {
 
-   console.log("render myPosts")
-
    const input = useStore($input)
    const posts = useStore($posts)
 
