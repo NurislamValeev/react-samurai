@@ -1,4 +1,4 @@
-import {authAPI, securityAPI} from "../api/api";
+import {authAPI, ResultCodesEnum, securityAPI} from "../api/api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA"
 const GET_CAPTCHA_URL_SUCCESS = "samurai-network/auth/GET_CAPTCHA_URL_SUCCESS"
@@ -26,7 +26,7 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
             return {
                 ...state,
                 ...action.payload,
-                id32: "ds",
+                // id32: "ds",
             }
 
         case SET_USER_PHOTO:
@@ -74,8 +74,9 @@ export const stopSubmit = (errorMessage: string) => ({type: STOP_SUBMIT, errorMe
 
 
 export const getAuthUser = () => async (dispatch: any) => {
-    let response = await authAPI.getAuthUserData()
-    if (response.resultCode === 0) {
+    let response = await authAPI.me()
+
+    if (response.resultCode === ResultCodesEnum.Success) {
         let {id, email, login} = response.data
         dispatch(setAuthUserData(id, email, login, true))
 
@@ -89,13 +90,13 @@ export const getAuthUser = () => async (dispatch: any) => {
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return async (dispatch: any) => {
         let response = await authAPI.login(email, password, rememberMe, captcha)
-        if (response.resultCode === 0) {
+        if (response.resultCode === ResultCodesEnum.Success) {
             dispatch(getAuthUser())
         } else {
-            if (response.resultCode === 10) {
+            if (response.resultCode === ResultCodesEnum.CaptchaIsRequired) {
                 dispatch(getCaptchaUrl())
             }
-            const errorMessage = await response.messages
+            const errorMessage = await response.messages[0]
             dispatch(stopSubmit(errorMessage))
             return Promise.reject(errorMessage)
         }
@@ -113,7 +114,7 @@ export const getCaptchaUrl = () => {
 export const logout = () => {
     return async (dispatch: any) => {
         let response = await authAPI.logout()
-        if (response.resultCode === 0) {
+        if (response.resultCode === ResultCodesEnum.Success) {
             dispatch(setAuthUserData(null, null, null, false))
         }
     }
