@@ -1,7 +1,7 @@
 import {Dispatch} from "redux"
 import {UserType} from "../types/types"
 import {updateObjectInArray} from "../utils/object-helpers"
-import {AppStateType, InferActionsTypes} from "./redux-store"
+import {AppStateType, BaseThunkType, InferActionsTypes} from "./redux-store"
 import {ThunkAction} from "redux-thunk"
 import {usersAPI} from "../api/users-api";
 
@@ -75,7 +75,7 @@ export const actions = {
 
 type GetStateType = () => AppStateType
 type DispatchType = Dispatch<ActionsTypes>
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+type ThunkType = BaseThunkType<ActionsTypes>
 
 // First option
 export const requestUsers = (page: number, pageSize: number)
