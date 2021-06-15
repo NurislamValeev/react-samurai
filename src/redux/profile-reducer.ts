@@ -1,5 +1,6 @@
-import {profileAPI, usersAPI} from "../api/api";
 import {PhotosType, ProfileType} from "../types/types";
+import {profileAPI} from "../api/profile-api";
+import {ResultCodesEnum} from "../api/api";
 
 const SET_USER_PROFILE = "SET_USER_PROFILE"
 const SET_STATUS = "SET_STATUS"
@@ -65,7 +66,7 @@ export const stopSubmit = (errorMessage: string): StopSubmitActionType => ({type
 
 export const getUserProfileThunk = (userId: number) => {
     return async (dispatch: any) => {
-        const response = await usersAPI.getUserProfile(userId)
+        const response = await profileAPI.getUserProfile(userId)
         dispatch(setUserProfile(response))
     }
 }
@@ -81,7 +82,7 @@ export const updateStatus = (status: string) => {
     return async (dispatch: any) => {
         try {
             let response = await profileAPI.updateStatus(status)
-            if (response.data.resultCode === 0) {
+            if (response.data.resultCode === ResultCodesEnum.Success) {
                 dispatch(setStatus(status))
             }
         } catch (error) {
@@ -92,9 +93,9 @@ export const updateStatus = (status: string) => {
 
 export const savePhoto = (file: any) => {
     return async (dispatch: any) => {
-        let response = await profileAPI.savePhoto(file)
-        if (response.data.resultCode === 0) {
-            dispatch(savePhotoSuccess(response.data.data.photos))
+        let data = await profileAPI.savePhoto(file)
+        if (data.resultCode === ResultCodesEnum.Success) {
+            dispatch(savePhotoSuccess(data.data.photos))
         }
     }
 }
@@ -104,7 +105,7 @@ export const saveProfile = (profile: ProfileType) => {
         const userId = getState().auth.id
         const response = await profileAPI.saveProfile(profile)
 
-        if (response.data.resultCode === 0) {
+        if (response.data.resultCode === ResultCodesEnum.Success) {
             dispatch(getUserProfileThunk(userId))
         } else {
             const errorMessage = await response.data.messages[0]

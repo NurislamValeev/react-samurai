@@ -11,11 +11,10 @@ type ErrorsType = {
     password: string
 }
 
-const LoginForm = (props: any) => {
-
+const LoginForm = (props: LoginFormPropsType) => {
     return (
         <Formik
-            initialValues={{email: '', password: '', captcha: null}}
+            initialValues={{email: '', password: '', captcha: ''}}
             onSubmit={(values, {setSubmitting}) => {
                 props.login(values.email, values.password, true, values.captcha)
             }}
@@ -33,8 +32,6 @@ const LoginForm = (props: any) => {
                 }
                 return errors
             }}
-
-
         >
             {({
                   values,
@@ -91,13 +88,16 @@ type MapDispatchPropsType = {
     login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
     stopSubmit: (errorMessage: string) => void
 }
+type LoginFormPropsType = {
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
+    captchaUrl: string | null
+    errorMessage: string | null
+}
 
-const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props) => {
-
+const Login: React.FC<MapStatePropsType & MapDispatchPropsType> = (props: MapDispatchPropsType & MapStatePropsType) => {
     if (props.isAuth) {
         return <Redirect to={"/profile"}/>
     }
-
     return (
         <div>
             <h1>Login</h1>
@@ -116,6 +116,5 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
     errorMessage: state.auth.errorMessage,
     captchaUrl: state.auth.captchaUrl,
 })
-
 
 export default connect(mapStateToProps, {login, stopSubmit})(Login)

@@ -37,11 +37,6 @@ const Users: React.FC<Props> = ({
                     />
                 )}
             </div>
-
-            <Paginator currentPage={currentPage} onPageChanged={onPageChanged}
-                       totalUsersCount={totalUsersCount} pageSize={pageSize}
-                       portionSize={10}
-            />
         </>
     )
 }

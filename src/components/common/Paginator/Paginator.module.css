@@ -1,17 +1,32 @@
 .numbers span {
-    margin-right: 5px;
+    justify-content: space-evenly;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+button {
+    justify-content: space-evenly;
 }
 
 .selectedPage {
     font-weight: 700;
     color: #d65c12;
-    font-size: 38px;
 }
 
 .numbers {
     margin-bottom: 15px;
     font-size: 32px;
     cursor: pointer;
+    display: inline-block;
+    min-width: 560px;
+    padding: 10px;
+    border: 3px whitesmoke solid;
+    border-radius: 15px;
+}
+
+.numbersInner {
+    display: flex;
+    justify-content: space-between;
 }
 
 .numbers span:hover {

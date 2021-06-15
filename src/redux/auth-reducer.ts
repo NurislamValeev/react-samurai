@@ -1,4 +1,6 @@
-import {authAPI, ResultCodesEnum, securityAPI} from "../api/api";
+import {ResultCodesEnum} from "../api/api";
+import {authAPI} from "../api/auth-api";
+import {securityAPI} from "../api/security-api";
 
 const SET_USER_DATA = "samurai-network/auth/SET_USER_DATA"
 const GET_CAPTCHA_URL_SUCCESS = "samurai-network/auth/GET_CAPTCHA_URL_SUCCESS"
@@ -43,32 +45,19 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
     }
 }
 
-type SetAuthUserDataActionPayloadType = {
-    id: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
-type SetAuthUserDataActionType = {
-    type: typeof SET_USER_DATA,
-    payload: SetAuthUserDataActionPayloadType
-}
+export const actions = {
+    setAuthUserData: (id: number | null, email: string | null, login: string | null, isAuth: boolean) => ({
+        type: SET_USER_DATA,
+        payload: {id, email, login, isAuth}
+    } as const),
 
-export const setAuthUserData = (id: number | null, email: string | null, login: string | null, isAuth: boolean)
-    : SetAuthUserDataActionType => ({
-    type: SET_USER_DATA,
-    payload: {id, email, login, isAuth}
-})
+    getCaptchaUrlSuccess: (captchaUrl: string) => ({
+        type: GET_CAPTCHA_URL_SUCCESS,
+        payload: {captchaUrl}
+    } as const),
 
-type GetCaptchaUrlSuccessActionType = {
-    type: typeof GET_CAPTCHA_URL_SUCCESS
-    payload: { captchaUrl: string }
 }
 
-export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessActionType => ({
-    type: GET_CAPTCHA_URL_SUCCESS,
-    payload: {captchaUrl}
-})
 export const setAuthUserPhoto = (photo: string) => ({type: SET_USER_PHOTO, photo})
 export const stopSubmit = (errorMessage: string) => ({type: STOP_SUBMIT, errorMessage})
 
@@ -78,14 +67,13 @@ export const getAuthUser = () => async (dispatch: any) => {
 
     if (response.resultCode === ResultCodesEnum.Success) {
         let {id, email, login} = response.data
-        dispatch(setAuthUserData(id, email, login, true))
+        dispatch(actions.setAuthUserData(id, email, login, true))
 
         let photo = await authAPI.getAuthUserPhoto(id)
         dispatch(setAuthUserPhoto(photo))
     }
 
 }
-
 
 export const login = (email: string, password: string, rememberMe: boolean, captcha: string) => {
     return async (dispatch: any) => {
@@ -107,7 +95,7 @@ export const getCaptchaUrl = () => {
     return async (dispatch: any) => {
         const response = await securityAPI.getCaptchaUrl()
         const captchaUrl = response.url
-        dispatch(getCaptchaUrlSuccess(captchaUrl))
+        dispatch(actions.getCaptchaUrlSuccess(captchaUrl))
     }
 }
 
@@ -115,7 +103,7 @@ export const logout = () => {
     return async (dispatch: any) => {
         let response = await authAPI.logout()
         if (response.resultCode === ResultCodesEnum.Success) {
-            dispatch(setAuthUserData(null, null, null, false))
+            dispatch(actions.setAuthUserData(null, null, null, false))
         }
     }
 }
